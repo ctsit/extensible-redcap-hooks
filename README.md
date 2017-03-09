@@ -43,7 +43,7 @@ file:
 
 ## Project-specific Hooks
 
-If you wanted to have a hook enabled for a specifc project, put your hook's
+If you wanted to have a hook enabled for a specific project, put your hook's
 file under a folder named in the format `pid{$project_id}`, where
 `{$project_id}` is the project's REDCap ID.
 
@@ -54,7 +54,7 @@ Project #12, create `pid12/redcap_data_entry_form.php`.
 ## Additional Hooks
 
 If you have more than one hook, you can create a folder named after the hook
-and every PHP files under that folder will be assumed to be a hook file.
+and every PHP file under that folder will be assumed to be a hook file.
 
 For example:
 
@@ -72,7 +72,7 @@ Hooks are searched for in four places, all relative to the folder in which
  1. Global hook: `$hook_name.php`
  2. Additional global hooks: `$hook_name/*.php`
  3. Project-specific hook: `pid{$project_id}/$hook_name.php`
- 4. Additional project-specific hooks: `pid{$project_id}/$hook_name.php`
+ 4. Additional project-specific hooks: `pid{$project_id}/$hook_name/*.php`
 
 "Global" hooks are not specific to a project and will run for all projects.
 
