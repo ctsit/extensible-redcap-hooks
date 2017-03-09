@@ -142,12 +142,12 @@ function redcap_user_rights($project_id)
 /**
  * Returns filenames matching our file-based, naming convention
  */
-function redcap_hooks_find($hook_name, $project_id = '')
+function redcap_hooks_find($hook_function, $project_id = '')
 {
 	return array_merge(
-		glob(__DIR__ . "/$hook_name.php"),
-		glob(__DIR__ . "/$hook_name/*.php"),
-		glob(__DIR__ . "/pid$project_id/$hook_name.php"),
-		glob(__DIR__ . "/pid$project_id/$hook_name/*.php")
+		glob(__DIR__ . "/$hook_function.php"),
+		glob(__DIR__ . "/$hook_function/*.php"),
+		glob(__DIR__ . "/pid$project_id/$hook_function.php"),
+		glob(__DIR__ . "/pid$project_id/$hook_function/*.php")
 	);
 }
