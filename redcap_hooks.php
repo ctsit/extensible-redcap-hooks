@@ -51,7 +51,7 @@
  */
 function redcap_add_edit_records_page($project_id, $instrument, $event_id)
 {
-	$hook_files = redcap_hooks_find('redcap_add_edit_records_page');
+	$hook_files = redcap_hooks_find('redcap_add_edit_records_page', $project_id);
 
 	foreach ($hook_files as $filename) {
 		$hook = include $filename;
@@ -112,7 +112,7 @@ function redcap_data_entry_form_top($project_id, $record, $instrument, $event_id
  */
 function redcap_every_page_before_render($project_id)
 {
-	$hook_files = redcap_hooks_find('redcap_every_page_before_render');
+	$hook_files = redcap_hooks_find('redcap_every_page_before_render', $project_id);
 
 	foreach ($hook_files as $filename) {
 		$hook = include $filename;
@@ -126,7 +126,7 @@ function redcap_every_page_before_render($project_id)
  */
 function redcap_every_page_top($project_id)
 {
-	$hook_files = redcap_hooks_find('redcap_every_page_top');
+	$hook_files = redcap_hooks_find('redcap_every_page_top', $project_id);
 
 	foreach ($hook_files as $filename) {
 		$hook = include $filename;
@@ -140,7 +140,7 @@ function redcap_every_page_top($project_id)
  */
 function redcap_project_home_page($project_id)
 {
-	$hook_files = redcap_hooks_find('redcap_project_home_page');
+	$hook_files = redcap_hooks_find('redcap_project_home_page', $project_id);
 
 	foreach ($hook_files as $filename) {
 		$hook = include $filename;
