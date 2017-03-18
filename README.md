@@ -64,7 +64,7 @@ For example:
   - `pid12/redcap_data_entry_form/9-more-stuff.php`
 
 
-## Summary of File Naming Convetion
+## Summary of File Naming Convention
 
 Hooks are searched for in four places, all relative to the folder in which
 `redcap_hooks.php` resides:

@@ -27,7 +27,7 @@
  * "pid{$project_id}", where $project_id is the project's REDCap ID. So, for
  * project 12, create "pid12/redcap_data_entry_form.php".
  *
- * Furthermore, if you have more than one hooks, you can create a folder named
+ * Furthermore, if you have more than one hook, you can create a folder named
  * after the hook, and all PHP files under that folder will be detected. For
  * example:
  *
