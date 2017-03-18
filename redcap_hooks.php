@@ -46,6 +46,20 @@
  */
 
 /**
+ * Finds and runs `redcap_add_edit_records_page` hooks
+ * @see REDCap Hooks documentation
+ */
+function redcap_add_edit_records_page($project_id, $instrument, $event_id)
+{
+	$hook_files = redcap_hooks_find('redcap_add_edit_records_page');
+
+	foreach ($hook_files as $filename) {
+		$hook = include $filename;
+		$hook($project_id, $instrument, $event_id);
+	}
+}
+
+/**
  * Finds and runs `redcap_control_center` hooks
  * @see REDCap Hooks documentation
  */
@@ -74,6 +88,63 @@ function redcap_data_entry_form($project_id, $record, $instrument, $event_id,
 	foreach ($hook_files as $filename) {
 		$hook = include $filename;
 		$hook($project_id, $record, $instrument, $event_id, $group_id);
+	}
+}
+
+/**
+ * Finds and runs `redcap_data_entry_form_top` hooks
+ * @see REDCap Hooks documentation
+ */
+function redcap_data_entry_form_top($project_id, $record, $instrument, $event_id,
+	$group_id)
+{
+	$hook_files = redcap_hooks_find('redcap_data_entry_form_top', $project_id);
+
+	foreach ($hook_files as $filename) {
+		$hook = include $filename;
+		$hook($project_id, $record, $instrument, $event_id, $group_id);
+	}
+}
+
+/**
+ * Finds and runs `redcap_every_page_before_render` hooks
+ * @see REDCap Hooks documentation
+ */
+function redcap_every_page_before_render($project_id)
+{
+	$hook_files = redcap_hooks_find('redcap_every_page_before_render');
+
+	foreach ($hook_files as $filename) {
+		$hook = include $filename;
+		$hook($project_id);
+	}
+}
+
+/**
+ * Finds and runs `redcap_every_page_top` hooks
+ * @see REDCap Hooks documentation
+ */
+function redcap_every_page_top($project_id)
+{
+	$hook_files = redcap_hooks_find('redcap_every_page_top');
+
+	foreach ($hook_files as $filename) {
+		$hook = include $filename;
+		$hook($project_id);
+	}
+}
+
+/**
+ * Finds and runs `redcap_project_home_page` hooks
+ * @see REDCap Hooks documentation
+ */
+function redcap_project_home_page($project_id)
+{
+	$hook_files = redcap_hooks_find('redcap_project_home_page');
+
+	foreach ($hook_files as $filename) {
+		$hook = include $filename;
+		$hook($project_id);
 	}
 }
 
@@ -117,6 +188,22 @@ function redcap_survey_page($project_id, $record, $instrument, $event_id,
 	$group_id, $survey_hash, $response_id)
 {
 	$hook_files = redcap_hooks_find('redcap_survey_page', $project_id);
+
+	foreach ($hook_files as $filename) {
+		$hook = include $filename;
+		$hook($project_id, $record, $instrument, $event_id, $group_id,
+			$survey_hash, $response_id);
+	}
+}
+
+/**
+ * Finds and runs `redcap_survey_page_top` hooks
+ * @see REDCap Hooks documentation
+ */
+function redcap_survey_page_top($project_id, $record, $instrument, $event_id,
+	$group_id, $survey_hash, $response_id)
+{
+	$hook_files = redcap_hooks_find('redcap_survey_page_top', $project_id);
 
 	foreach ($hook_files as $filename) {
 		$hook = include $filename;
