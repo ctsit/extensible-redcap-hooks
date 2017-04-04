@@ -36,6 +36,9 @@
  *   pid12/redcap_data_entry_form/01-other-hook.php
  *   pid12/redcap_data_entry_form/9-more-stuff.php
  *
+ * To activate logging on a specific hook_function, add a TRUE as the third
+ * parameter of the call of redcap_hooks_find in within that hook_function
+ *
  * Caveat: Since `redcap_custom_verify_username` has a non-void return type, it
  * is not supported. You'll have to implement the function in this file per the
  * REDCap documentation.
@@ -229,12 +232,30 @@ function redcap_user_rights($project_id)
 /**
  * Returns filenames matching our file-based, naming convention
  */
-function redcap_hooks_find($hook_function, $project_id = '')
+function redcap_hooks_find($hook_function, $project_id = '', $logging = FALSE)
 {
-	return array_merge(
-		glob(__DIR__ . "/$hook_function.php"),
-		glob(__DIR__ . "/$hook_function/*.php"),
-		glob(__DIR__ . "/pid$project_id/$hook_function.php"),
-		glob(__DIR__ . "/pid$project_id/$hook_function/*.php")
-	);
+    $found = array_merge(
+        glob(__DIR__ . "/$hook_function.php"),
+        glob(__DIR__ . "/$hook_function/*.php"),
+        glob(__DIR__ . "/pid$project_id/$hook_function.php"),
+        glob(__DIR__ . "/pid$project_id/$hook_function/*.php")
+    );
+
+    if ($logging) {
+        $log_file = "/tmp/hook_events.log";
+        $desired_keys = ['pid', 'page', 'id', 'auto', 'arm', 'pids', 'redcap_csrf_token', 'type', 'action'];
+        $my_request = array();
+        foreach ($_REQUEST as $key => $value) {
+            if (in_array($key,$desired_keys)) {
+                $my_request[$key] = $value;
+            }
+        }
+
+        file_put_contents($log_file, "$hook_function at " . PAGE . " with " . json_encode($my_request) . "\n", FILE_APPEND);
+        if (count($found) > 0 ) {
+            file_put_contents($log_file, "found hooks: " . print_r($found, TRUE) . "\n", FILE_APPEND);
+        }
+    }
+
+    return $found;
 }
