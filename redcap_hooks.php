@@ -1,7 +1,7 @@
 <?php
 ###############################################################################
-# Copyright 2015 Univeristy of Florida. All rights reserved.
-# This file is part of the redcap-extras project.
+# Copyright 2017 University of Florida. All rights reserved.
+# This file was originally part of the redcap-extras project.
 # Use of this source code is governed by the license found in the LICENSE file.
 ###############################################################################
 
@@ -9,7 +9,7 @@
  * REDCap Hooks
  *
  *   Requires PHP >= 5.3.0
- *   Tested with REDCap 6.0.5 LTS.
+ *   Tested with REDCap 6.18.1, 7.2.2.
  *
  * This file enables the file-based management of REDCap Hooks. REDCap supports
  * only one hooks file, specified under Control Center > REDCap Hooks. This
@@ -37,14 +37,24 @@
  *   pid12/redcap_data_entry_form/9-more-stuff.php
  *
  * To activate logging on a specific hook_function, add a TRUE as the third
- * parameter of the call of redcap_hooks_find in within that hook_function
+ * parameter of the call to redcap_hooks_find within that hook_function.  E.g., turn
+ *
+ *      $hook_files = redcap_hooks_find('redcap_data_entry_form_top', $project_id);
+ *
+ * into
+ *
+ *      $hook_files = redcap_hooks_find('redcap_data_entry_form_top', $project_id, TRUE);
+ *
+ * Hook logging output will be written to `/tmp/hook_events.log` This can be changed by editing
+ * the redcap_hooks_find function.  TODO: Make logging activation and the log file configurable.
+ *
  *
  * Caveat: Since `redcap_custom_verify_username` has a non-void return type, it
  * is not supported. You'll have to implement the function in this file per the
  * REDCap documentation.
  *
  * @author Taeber Rapczak <taeber@ufl.edu>
- * @copyright Copyright 2015, University of Florida
+ * @copyright Copyright 2017, University of Florida
  * @license See above
  */
 
