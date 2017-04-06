@@ -22,8 +22,8 @@ multiple implementations per hook. Each hook-function in that file looks for
 actual hooks in other PHP files with the same name as the hook.
 
 For example, if you wanted to add functionality when displaying a data entry
-form, the hook is called "redcap_data_entry_form". So, you would create a
-"redcap_data_entry_form.php" file with your hook-function in it.
+form, the hook is called `redcap_data_entry_form`. So, you would create a
+`redcap_data_entry_form.php` file with your hook-function in it.
 
 
 ## Writing Hook-functions
@@ -87,6 +87,20 @@ Since `redcap_custom_verify_username` has a non-void return type it has to be
 implemented only if needed and directly in `redcap_hooks.php` as per the REDCap
 documentation.
 
+## Logging
+
+To activate logging on a specific hook_function, add a `TRUE` as the third
+parameter of the call to `redcap_hooks_find` within that hook function.  E.g., turn
+
+    $hook_files = redcap_hooks_find('redcap_data_entry_form_top', $project_id);
+
+into
+
+    $hook_files = redcap_hooks_find('redcap_data_entry_form_top', $project_id, TRUE);
+
+Hook logging output will be written to `/tmp/hook_events.log` This can be changed by editing
+the `redcap_hooks_find` function.
+
 
 ## Contributors
 
@@ -99,5 +113,5 @@ custom REDCap Hooks.
 
 ## License
 
-Copyright 2015, University of Florida; licensed under the Apache License,
+Copyright 2017, University of Florida; licensed under the Apache License,
 Version 2.0. See the [LICENSE](LICENSE) file for the full text.
