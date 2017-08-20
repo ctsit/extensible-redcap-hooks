@@ -76,7 +76,7 @@ function redcap_control_center() {
 }
 
 /**
- * Finds and runs `redcap_control_center` hooks.
+ * Finds and runs `redcap_custom_verify_username` hooks.
  * @see REDCap Hooks documentation
  */
 function redcap_custom_verify_username($username) {
