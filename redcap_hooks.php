@@ -48,202 +48,152 @@
  * Hook logging output will be written to `/tmp/hook_events.log` This can be changed by editing
  * the redcap_hooks_find function.  TODO: Make logging activation and the log file configurable.
  *
- *
- * Caveat: Since `redcap_custom_verify_username` has a non-void return type, it
- * is not supported. You'll have to implement the function in this file per the
- * REDCap documentation.
- *
  * @author Taeber Rapczak <taeber@ufl.edu>
  * @copyright Copyright 2017, University of Florida
  * @license See above
  */
 
+include_once dirname(APP_PATH_DOCROOT) . '/external_modules/classes/ExternalModules.php';
+
 /**
- * Finds and runs `redcap_add_edit_records_page` hooks
+ * Finds and runs `redcap_add_edit_records_page` hooks.
  * @see REDCap Hooks documentation
  */
-function redcap_add_edit_records_page($project_id, $instrument, $event_id)
-{
-	$hook_files = redcap_hooks_find('redcap_add_edit_records_page', $project_id);
-
-	foreach ($hook_files as $filename) {
-		$hook = include $filename;
-		$hook($project_id, $instrument, $event_id);
-	}
+function redcap_add_edit_records_page($project_id, $instrument, $event_id) {
+    redcap_hook_invoke(__FUNCTION__, $project_id, func_get_args());
 }
 
 /**
- * Finds and runs `redcap_control_center` hooks
+ * Finds and runs `redcap_control_center` hooks.
  * @see REDCap Hooks documentation
  */
-function redcap_control_center()
-{
-	$hook_files = redcap_hooks_find('redcap_control_center');
-
-	foreach ($hook_files as $filename) {
-		$hook = include $filename;
-		$hook();
-	}
-}
-
-// CAVEAT: redcap_custom_verify_username is unsupported, but you can still add
-// your own function here.
-
-/**
- * Finds and runs `redcap_data_entry_form` hooks
- * @see REDCap Hooks documentation
- */
-function redcap_data_entry_form($project_id, $record, $instrument, $event_id,
-	$group_id)
-{
-	$hook_files = redcap_hooks_find('redcap_data_entry_form', $project_id);
-
-	foreach ($hook_files as $filename) {
-		$hook = include $filename;
-		$hook($project_id, $record, $instrument, $event_id, $group_id);
-	}
+function redcap_control_center() {
+    redcap_hook_invoke(__FUNCTION__, null, func_get_args());
 }
 
 /**
- * Finds and runs `redcap_data_entry_form_top` hooks
+ * Finds and runs `redcap_control_center` hooks.
  * @see REDCap Hooks documentation
  */
-function redcap_data_entry_form_top($project_id, $record, $instrument, $event_id,
-	$group_id)
-{
-	$hook_files = redcap_hooks_find('redcap_data_entry_form_top', $project_id);
-
-	foreach ($hook_files as $filename) {
-		$hook = include $filename;
-		$hook($project_id, $record, $instrument, $event_id, $group_id);
-	}
+function redcap_custom_verify_username($username) {
+    return redcap_hook_invoke(__FUNCTION__, null, func_get_args());
 }
 
 /**
- * Finds and runs `redcap_every_page_before_render` hooks
+ * Finds and runs `redcap_data_entry_form` hooks.
  * @see REDCap Hooks documentation
  */
-function redcap_every_page_before_render($project_id)
-{
-	$hook_files = redcap_hooks_find('redcap_every_page_before_render', $project_id);
-
-	foreach ($hook_files as $filename) {
-		$hook = include $filename;
-		$hook($project_id);
-	}
+function redcap_data_entry_form($project_id, $record, $instrument, $event_id, $group_id) {
+    redcap_hook_invoke(__FUNCTION__, $project_id, func_get_args());
 }
 
 /**
- * Finds and runs `redcap_every_page_top` hooks
+ * Finds and runs `redcap_data_entry_form_top` hooks.
  * @see REDCap Hooks documentation
  */
-function redcap_every_page_top($project_id)
-{
-	$hook_files = redcap_hooks_find('redcap_every_page_top', $project_id);
-
-	foreach ($hook_files as $filename) {
-		$hook = include $filename;
-		$hook($project_id);
-	}
+function redcap_data_entry_form_top($project_id, $record, $instrument, $event_id, $group_id) {
+    redcap_hook_invoke(__FUNCTION__, $project_id, func_get_args());
 }
 
 /**
- * Finds and runs `redcap_project_home_page` hooks
+ * Finds and runs `redcap_every_page_before_render` hooks.
  * @see REDCap Hooks documentation
  */
-function redcap_project_home_page($project_id)
-{
-	$hook_files = redcap_hooks_find('redcap_project_home_page', $project_id);
-
-	foreach ($hook_files as $filename) {
-		$hook = include $filename;
-		$hook($project_id);
-	}
+function redcap_every_page_before_render($project_id) {
+    redcap_hook_invoke(__FUNCTION__, $project_id, func_get_args());
 }
 
 /**
- * Finds and runs `redcap_save_record` hooks
+ * Finds and runs `redcap_every_page_top` hooks.
  * @see REDCap Hooks documentation
  */
-function redcap_save_record($project_id, $record, $instrument, $event_id,
-	$group_id, $survey_hash, $response_id)
-{
-	$hook_files = redcap_hooks_find('redcap_save_record', $project_id);
-
-	foreach ($hook_files as $filename) {
-		$hook = include $filename;
-		$hook($project_id, $record, $instrument, $event_id, $group_id,
-			$survey_hash, $response_id);
-	}
+function redcap_every_page_top($project_id) {
+    redcap_hook_invoke(__FUNCTION__, $project_id, func_get_args());
 }
 
 /**
- * Finds and runs `redcap_survey_complete` hooks
+ * Finds and runs `redcap_project_home_page` hooks.
  * @see REDCap Hooks documentation
  */
-function redcap_survey_complete($project_id, $record, $instrument, $event_id,
-	$group_id, $survey_hash, $response_id)
-{
-	$hook_files = redcap_hooks_find('redcap_survey_complete', $project_id);
-
-	foreach ($hook_files as $filename) {
-		$hook = include $filename;
-		$hook($project_id, $record, $instrument, $event_id, $group_id,
-			$survey_hash, $response_id);
-	}
+function redcap_project_home_page($project_id) {
+    redcap_hook_invoke(__FUNCTION__, $project_id, func_get_args());
 }
 
 /**
- * Finds and runs `redcap_survey_page` hooks
+ * Finds and runs `redcap_save_record` hooks.
  * @see REDCap Hooks documentation
  */
-function redcap_survey_page($project_id, $record, $instrument, $event_id,
-	$group_id, $survey_hash, $response_id)
-{
-	$hook_files = redcap_hooks_find('redcap_survey_page', $project_id);
-
-	foreach ($hook_files as $filename) {
-		$hook = include $filename;
-		$hook($project_id, $record, $instrument, $event_id, $group_id,
-			$survey_hash, $response_id);
-	}
+function redcap_save_record($project_id, $record, $instrument, $event_id, $group_id, $survey_hash, $response_id) {
+    redcap_hook_invoke(__FUNCTION__, $project_id, func_get_args());
 }
 
 /**
- * Finds and runs `redcap_survey_page_top` hooks
+ * Finds and runs `redcap_survey_complete` hooks.
  * @see REDCap Hooks documentation
  */
-function redcap_survey_page_top($project_id, $record, $instrument, $event_id,
-	$group_id, $survey_hash, $response_id)
-{
-	$hook_files = redcap_hooks_find('redcap_survey_page_top', $project_id);
-
-	foreach ($hook_files as $filename) {
-		$hook = include $filename;
-		$hook($project_id, $record, $instrument, $event_id, $group_id,
-			$survey_hash, $response_id);
-	}
+function redcap_survey_complete($project_id, $record, $instrument, $event_id, $group_id, $survey_hash, $response_id) {
+    redcap_hook_invoke(__FUNCTION__, $project_id, func_get_args());
 }
 
 /**
- * Finds and runs `redcap_user_rights` hooks
+ * Finds and runs `redcap_survey_page` hooks.
  * @see REDCap Hooks documentation
  */
-function redcap_user_rights($project_id)
-{
-	$hook_files = redcap_hooks_find('redcap_user_rights', $project_id);
-
-	foreach ($hook_files as $filename) {
-		$hook = include $filename;
-		$hook($project_id);
-	}
+function redcap_survey_page($project_id, $record, $instrument, $event_id, $group_id, $survey_hash, $response_id) {
+    redcap_hook_invoke(__FUNCTION__, $project_id, func_get_args());
 }
 
 /**
- * Returns filenames matching our file-based, naming convention
+ * Finds and runs `redcap_survey_page_top` hooks.
+ * @see REDCap Hooks documentation
  */
-function redcap_hooks_find($hook_function, $project_id = '', $logging = FALSE)
-{
+function redcap_survey_page_top($project_id, $record, $instrument, $event_id, $group_id, $survey_hash, $response_id) {
+    redcap_hook_invoke(__FUNCTION__, $project_id, func_get_args());
+}
+
+/**
+ * Finds and runs `redcap_user_rights` hooks.
+ * @see REDCap Hooks documentation
+ */
+function redcap_user_rights($project_id) {
+    redcap_hook_invoke(__FUNCTION__, $project_id, func_get_args());
+}
+
+/**
+ * Looks for hooks implementations and invoke them.
+ *
+ * @param string $hook_name
+ *   The hook name (e.g. "redcap_data_entry_form", "redcap_every_page_top").
+ * @param int $project_id
+ *   The REDCap project ID, if available.
+ * @param array $params
+ *   The hook parameters.
+ *
+ * @return mixed
+ *   Returns the last hook execution return value.
+ */
+function redcap_hook_invoke($hook_name, $project_id = null, $params = array()) {
+    if (!defined('APP_PATH_EXTMOD') && class_exists('ExternalModules')) {
+        ExternalModules::callHook($hook_name, $params);
+    }
+
+    if (!$hook_files = redcap_hooks_find($hook_name, $project_id)) {
+        return;
+    }
+
+    $results = array();
+    foreach ($hook_files as $filename) {
+        $function = include $filename;
+        $results[] = call_user_func_array($function, $params);
+    }
+
+    return end($results);
+}
+
+/**
+ * Returns filenames matching our file-based, naming convention.
+ */
+function redcap_hooks_find($hook_function, $project_id = '', $logging = FALSE) {
     $found = array_merge(
         glob(__DIR__ . "/$hook_function.php"),
         glob(__DIR__ . "/$hook_function/*.php"),
