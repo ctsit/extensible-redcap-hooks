@@ -173,8 +173,8 @@ function redcap_user_rights($project_id) {
  *   Returns the last hook execution return value.
  */
 function redcap_hook_invoke($hook_name, $project_id = null, $params = array()) {
-    if (!defined('APP_PATH_EXTMOD') && class_exists('ExternalModules')) {
-        ExternalModules::callHook($hook_name, $params);
+    if (!defined('APP_PATH_EXTMOD') && class_exists('ExternalModules\ExternalModules')) {
+        ExternalModules\ExternalModules::callHook($hook_name, $params);
     }
 
     if (!$hook_files = redcap_hooks_find($hook_name, $project_id)) {
