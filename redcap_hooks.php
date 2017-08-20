@@ -53,7 +53,11 @@
  * @license See above
  */
 
+// Includes REDCap External modules, if available.
 include_once dirname(APP_PATH_DOCROOT) . '/external_modules/classes/ExternalModules.php';
+
+// Includes Composer vendor autoload file, if available.
+include_once dirname(APP_PATH_DOCROOT) . '/vendor/autoload.php';
 
 /**
  * Finds and runs `redcap_add_edit_records_page` hooks.
